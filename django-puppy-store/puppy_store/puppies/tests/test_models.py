@@ -1,5 +1,6 @@
 from django.test import TestCase
 from ..models import Puppy
+from ..serializers import PuppySerializer
 
 
 class PuppyTest(TestCase):
@@ -18,4 +19,3 @@ class PuppyTest(TestCase):
             puppy_casper.get_breed(), "Casper belongs to Bull Dog breed.")
         self.assertEqual(
             puppy_muffin.get_breed(), "Muffin belongs to Gradane breed.")
-

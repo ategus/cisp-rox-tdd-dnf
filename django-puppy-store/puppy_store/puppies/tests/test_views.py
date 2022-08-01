@@ -31,3 +31,20 @@ class GetAllPuppiesTest(TestCase):
         serializer = PuppySerializer(puppies, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class GetSinglePuppyTest(TestCase):
+    """ Test module for GET single puppy API """
+
+    def test_get_valid_single_puppy(self):
+        response = client.get(
+            reverse('get_delete_update_puppy', kwargs={'pk': self.rambo.pk}))
+        puppy = Puppy.objects.get(pk=self.rambo.pk)
+        serializer = PuppySerializer(puppy)
+        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_invalid_single_puppy(self):
+        response = client.get(
+            reverse('get_delete_update_puppy', kwargs={'pk': 30}))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
